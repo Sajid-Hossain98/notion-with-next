@@ -1,3 +1,14 @@
-export default function Home() {
-  return <p className="h-full bg-green-500">Notion-with-next</p>;
-}
+import { Heading } from "./_components/heading";
+import { Heroes } from "./_components/heroes";
+
+const MarketingPage = () => {
+  return (
+    <div className="flex flex-col min-h-full">
+      <div className="flex flex-col items-center justify-center md:justify-start text-center gap-8 flex-1 px-6 pb-10">
+        <Heading />
+        <Heroes />
+      </div>
+    </div>
+  );
+};
+export default MarketingPage;
