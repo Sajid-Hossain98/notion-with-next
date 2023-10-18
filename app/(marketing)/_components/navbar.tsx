@@ -1,11 +1,17 @@
 "use client";
 
-import { useScrollTop } from "@/hooks/use-scroll-top";
-import { ModeToggle } from "@/components/mode-toggle";
-import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
+import { cn } from "@/lib/utils";
+import { ModeToggle } from "@/components/mode-toggle";
+import { useScrollTop } from "@/hooks/use-scroll-top";
+import { useConvexAuth } from "convex/react";
+import { SignInButton, UserButton } from "@clerk/clerk-react";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/spinner";
+import Link from "next/link";
 
 export const Navbar = () => {
+  const { isAuthenticated, isLoading } = useConvexAuth();
   const scrolled = useScrollTop();
   return (
     <div
@@ -17,6 +23,32 @@ export const Navbar = () => {
       <Logo />
 
       <div className="w-full md:ml-auto flex items-center justify-between md:justify-end gap-x-2">
+        {isLoading && (
+          <p>
+            <Spinner />
+          </p>
+        )}
+        {!isAuthenticated && !isLoading && (
+          <>
+            <SignInButton mode="modal">
+              <Button variant="ghost" size="sm">
+                Login
+              </Button>
+            </SignInButton>
+            <SignInButton mode="modal">
+              <Button size="sm">Get Sotion free</Button>
+            </SignInButton>
+          </>
+        )}
+
+        {isAuthenticated && !isLoading && (
+          <>
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/documents">Enter Sotion</Link>
+            </Button>
+            <UserButton afterSignOutUrl="/" />
+          </>
+        )}
         <ModeToggle />
       </div>
     </div>
