@@ -48,7 +48,7 @@ export const TrashBox = () => {
 
     toast.promise(promise, {
       loading: "Deleting note...",
-      success: "Note deleted",
+      success: "Note deleted!",
       error: "Failed to delete.",
     });
 
